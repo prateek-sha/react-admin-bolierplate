@@ -1,17 +1,27 @@
 export const menuLayout = [
   {
-    title: "Membership",
+    title: "Products",
     key: 1,
-    view: "Membership"
+    view: "ProductPage"
   },
   {
-    title: "Account Open",
+    title: "Quotes",
     key: 2,
-    view: "AccountOpen"
+    view: "QuotePage"
   },
   {
-    title: "DDS reniwal",
+    title: "Favourites",
     key: 3,
-    view: "DdsRenival"
+    view: "FavouritePage"
+  },
+  {
+    title: "User",
+    key: 4,
+    view: "UserPage"
+  },
+  {
+    title: "Order",
+    key: 5,
+    view: "OrderPage"
   }
 ];

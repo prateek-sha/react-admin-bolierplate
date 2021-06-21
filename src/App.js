@@ -3,7 +3,7 @@ import { AppController } from "./appController/AppController";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import { store } from "./redux/index";
-import { Login } from "./pages/Login";
+import { Login } from "./pages/login/Login";
 import PublicRoute from "./custom-routes/PublicRoute";
 import PrivateRoute from "./custom-routes/PrivateRoute";
 

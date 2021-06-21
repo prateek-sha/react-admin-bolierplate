@@ -1,6 +1,6 @@
 import { Form, Input, Button, Image, message } from "antd";
 import { useDispatch } from "react-redux";
-import { mangeLogin } from "../redux/actions/appStatus";
+import { mangeLogin } from "../../redux/actions/appStatus";
 // import logo from "../assets/logo.jpg";
 import "./Login.css";
 

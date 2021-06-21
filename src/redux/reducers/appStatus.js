@@ -1,6 +1,6 @@
 
 const initalState = {
-  login: false
+  login: true
 };
 
 export const appStatus = (state = initalState, action) => {
