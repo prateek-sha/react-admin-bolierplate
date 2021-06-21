@@ -1,0 +1,10 @@
+#menu-logo{
+    height: 10;
+    width: 10;
+}
+.ant-drawer-body{
+    padding-top: 1% !important;
+}
+.ant-menu-inline{
+border:none !important;
+}
