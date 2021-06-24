@@ -8,6 +8,10 @@ import { OrderPage  } from '../../pages/order'
 import { ProductPage } from '../../pages/product'
 import {  QuotePage } from '../../pages/quote'
 import {  UserPage } from '../../pages/user'
+import { MainCategoryPanel } from "../productForms/mainCategory";
+import { MasterPanel } from "../productForms/master";
+import { ProductPanel } from "../productForms/product";
+import { SubMasterPanel } from "../productForms/subMaster";
 
 
 export const MenuContent = () => {
@@ -37,6 +41,14 @@ export const MenuContent = () => {
 			return <QuotePage />
 		case "OrderPage":
 			return <OrderPage />
+		case "MainCategoryPanel":
+			return <MainCategoryPanel />
+		case "MasterPanel":
+			return <MasterPanel />
+		case "SubMasterPanel":
+			return <SubMasterPanel />
+		case "ProductPanel":
+			return <ProductPanel />
 		default:
 			return <></>;
 	}
