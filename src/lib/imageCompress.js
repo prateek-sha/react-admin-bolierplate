@@ -1,4 +1,4 @@
-function canvasDataURL(path, obj, callback, resolve) {
+function canvasDataURL(path, obj, callback, resolve, fileName) {
 	var img = new Image();
 	img.src = path;
 	img.onload = function () {
@@ -28,29 +28,31 @@ function canvasDataURL(path, obj, callback, resolve) {
 		// The smaller the quality value, the more blurred the drawn image
 		var base64 = canvas.toDataURL('image/jpeg', 0.5);
 		// The callback function returns the value of base64
-		convertBase64UrlToBlob(base64, resolve);
+		convertBase64UrlToBlob(base64, resolve, fileName);
 	}
 }
 
-export function convertBase64UrlToBlob(urlData, resolve) {
+export function convertBase64UrlToBlob(urlData, resolve, fileName) {
 	var arr = urlData.split(','), mime = arr[0].match(/:(.*?);/)[1],
 		bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
 	while (n--) {
 		u8arr[n] = bstr.charCodeAt(n);
 	}
-    resolve(new Blob([u8arr], { type: mime }))
+	let blob = new Blob([u8arr], { type: mime });
+	blob.name = fileName
+    resolve(blob)
 	// return new Blob([u8arr], { type: mime });
 }
 
 
-export const photoCompress = (file, w, objDiv) => {
+export const photoCompress = (file, w, objDiv, fileName) => {
     return new Promise((resolve) => {
         const ret = (data) => resolve(data)
         var ready = new FileReader();
         ready.readAsDataURL(file);
         ready.onload = function () {
             var re = this.result;
-            canvasDataURL(re, w, objDiv, ret)   
+            canvasDataURL(re, w, objDiv, ret, fileName)   
         }
     })
 }

@@ -12,6 +12,7 @@ import PrivateRoute from "./custom-routes/PrivateRoute";
 
 import 'react-toastify/dist/ReactToastify.css';
 import "antd/dist/antd.css";
+import './App.css'
 
 const LoadingIndicator = props => {
   const {promiseInProgress} = usePromiseTracker();

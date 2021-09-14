@@ -12,6 +12,8 @@ import { MainCategoryPanel } from "../productForms/mainCategory";
 import { MasterPanel } from "../productForms/master";
 import { ProductPanel } from "../productForms/product";
 import { SubMasterPanel } from "../productForms/subMaster";
+import { PagesData } from "../../pages/pagesData/Index";
+import { SliderPage } from "../../pages/slider";
 
 
 export const MenuContent = () => {
@@ -49,6 +51,10 @@ export const MenuContent = () => {
 			return <SubMasterPanel />
 		case "ProductPanel":
 			return <ProductPanel />
+		case "PagesData":
+			return <PagesData />
+		case "SliderPage":
+			return <SliderPage />
 		default:
 			return <></>;
 	}

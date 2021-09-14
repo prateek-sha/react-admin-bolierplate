@@ -8,3 +8,23 @@
 .ant-menu-inline{
 border:none !important;
 }
+
+ .logo {
+    float: left;
+    width: 90%;
+    text-align: left;
+    /* width: 120px/; */
+    font-size: 24px;
+    /* margin: 16px 24px 16px 0; */
+    color: #fff;
+  }
+  
+  .ant-row-rtl #components-layout-demo-top-side-2 .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+  }
+  
+  .site-layout-background {
+    background: #fff;
+  }
+  

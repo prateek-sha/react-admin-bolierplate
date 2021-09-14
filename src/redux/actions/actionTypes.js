@@ -5,3 +5,7 @@ export const setParent = "SET_PARENT";
 export const setMaster = "SET_MASTER";
 export const setSubMaster = "SET_SUBMASTER";
 export const setProduct = "SET_PRODUCT";
+export const setUser = "SET_USER";
+export const setOrder = "SET_ORDER";
+export const setQuote = "SET_QUOTE";
+export const setFavourite = "SET_favourite";

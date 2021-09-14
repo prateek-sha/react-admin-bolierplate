@@ -2,39 +2,45 @@ export const menuLayout = [
 	{
 		type: "parent",
 		title: "Products",
-		key: 1,
+		key: 'sub1',
 		view: "MainCategoryPanel",
 		children: [
 			{
 				type: "root",
 				title: "Main Category",
-				key: 2,
+				key: 1,
 				view: "MainCategoryPanel"
 			},
 			{
 				type: "root",
 				title: "Master",
-				key: 3,
+				key: 2,
 				view: "MasterPanel"
 			},
 			{
 				type: "root",
 				title: "Sub Master",
-				key: 4,
+				key: 3,
 				view: "SubMasterPanel"
 			},
 			{
 				type: "root",
 				title: "Product",
-				key: 5,
+				key: 4,
 				view: "ProductPanel"
 			},
 		]
 	},
 	{
 		type: "root",
+		title: "Slider",
+		key: 15,
+		view: "SliderPage"
+	},
+	{
+		type: "root",
 		title: "Quotes",
-		key: 6,
+		key: 5,
 		view: "QuotePage"
 	},
 	{
@@ -54,5 +60,11 @@ export const menuLayout = [
 		title: "Order",
 		key: 8,
 		view: "OrderPage"
+	},
+	{
+		type: "root",
+		title: "Pages Data",
+		key: 9,
+		view: "PagesData"
 	}
 ];

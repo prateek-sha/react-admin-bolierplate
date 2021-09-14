@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Input, Form, Modal, Button,Space, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons'
 import { setParent } from '../../elements/api/product';
-import { toast } from 'react-toastify';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setParentAction } from '../../redux/actions/product';
+import { setParentAction } from '../../redux/actions/allData';
+import { responseHelper } from '../../lib/response';
+import { SearchableTable } from '../../lib/serach';
 
 export const MainCategoryPanel = () => {
 	const [data, setData] = useState([]);
-	const [name, setName] = useState('');
 	const [visible, setVisible] = useState(false)
 	const [isEdit, setIsEdit] = useState(false)
 	const [selectedID, setSelectedID] = useState(null)
 
-	const dispatch = useDispatch()
-
 	const [form] = Form.useForm()
+	const allDataReducer = useSelector(state => state.allDataReducer)
 
-	const productReducer = useSelector(state => state.productReducer)
+	const dispatch = useDispatch()
+	const refresh = () => dispatch(setParentAction())
 	
 	useEffect(() => { 
-		if(productReducer.parent.length){
-			let res = productReducer.parent;
+		if(allDataReducer.parent){
+			let res = allDataReducer.parent;
 			setData(res)
 		}
-	}, [productReducer.parent])
+	}, [allDataReducer.parent])
 	
 
 	const columns = [
 		{
 			title: 'ID',
 			dataIndex: 'id',
-			editable: false,
+			sorter: (a, b) => a.id - b.id,
+			key:"id"
 		},
 		{
 			title: 'Name',
+			key:'name',
 			dataIndex: 'name',
-			editable: true,
 		},
 		{
 			title:'Action',
+			key:'action',
 			render:(data)=><Space>
                 <Button  type="primary" onClick={()=>setSelectedID(data.id)}>Edit</Button>
 				<Popconfirm  title="Are you sure you want to delete this?" onConfirm={ () => handleDelete(data.id)} >
@@ -52,11 +53,7 @@ export const MainCategoryPanel = () => {
 
 	const handleDelete = async (id) => {
 		let res = await setParent({id, action:"DELETE"});
-		if(res.status !== "0"){
-			dispatch(setParentAction());
-			toast.success(res.msg);
-		}else 
-			toast.error(res.msg);
+		responseHelper(res, refresh);
 	}
 
 	useEffect(()=>{
@@ -64,27 +61,26 @@ export const MainCategoryPanel = () => {
 			setVisible(true)
 			setIsEdit(true)
 			let formValue = data.filter(({id}) => id === selectedID )[0]
-			console.log(formValue)
 			form.setFieldsValue({...formValue})
 		}
 	},[selectedID])
 
-	const handleOk = async () => {
+	const handleOk = async ({name}) => {
 		if (isEdit) {
-
+			let res = await setParent({ name, id:selectedID,  action: "UPDATE" })
+			responseHelper(res, refresh);
 		} else {
-			if (name === '') {
-				toast.error("It cannot be empty");
-				return;
-			}
 			let res = await setParent({ name, action: "INSERT" })
-			console.log(res)
+			responseHelper(res, refresh);
 		}
+		onCancel()
 	}
 
 	const onCancel = () => {
 		setVisible(false);
+		setIsEdit(false);
 		setSelectedID(null);
+		form.resetFields()
 	}
 
 	return (
@@ -96,7 +92,7 @@ export const MainCategoryPanel = () => {
 				onCancel={onCancel}
 			>
 				<Form form={form} layout="vertical" onFinish={handleOk}>
-					<Form.Item label="Category Name" name="name">
+					<Form.Item rules={[{required:true, message:"This is required" }]} label="Category Name" name="name"  rules={[{required:true , message:'this is required'}]} >
 						<Input />
 					</Form.Item>
 					<Button type="primary"  htmlType="submit" >{isEdit ? "Edit" : "Save"}</Button>
@@ -104,13 +100,12 @@ export const MainCategoryPanel = () => {
 			</Modal>
 			<Button onClick={() => setVisible(true)} icon={<PlusOutlined />} type="primary" >Add</Button><br />
 			<br />
-			<Form form={form} component={false}>
-				<Table
-					dataSource={data}
-					columns={columns}
-					rowClassName="editable-row"
-				/>
-			</Form>
+			<SearchableTable
+			id="main"
+				dataSource={data}
+				columns={columns}
+				rowClassName="editable-row"
+			/>
 		</div>
 	);
 };

@@ -1,7 +1,8 @@
 import { Form, Input, Button, Image, message } from "antd";
 import { useDispatch } from "react-redux";
+import { login } from "../../elements/api/other";
 import { mangeLogin } from "../../redux/actions/appStatus";
-// import logo from "../assets/logo.jpg";
+import logo from "../../logo.png";
 import "./Login.css";
 
 const layout = {
@@ -20,9 +21,12 @@ const tailLayout = {
 };
 
 export const Login = () => {
+
 	const dispatch = useDispatch();
-	const onFinish = values => {
-		if (values.username === "fafaa" && values.password === "aafaf") {
+	
+	const onFinish = async ({ username, password }) => {
+		let res = await login({ username, password })
+		if (res.status === "1") {
 			dispatch(mangeLogin(true));
 		} else {
 			message.error("username and password is not correct");
@@ -35,14 +39,11 @@ export const Login = () => {
 
 	return (
 		<div className="wrapper">
-			<Image preview={false} width={200} src={"logo"} />
+			<Image preview={false} width={200} src={logo} />
 
 			<Form
 				{...layout}
-				name="basic"
-				initialValues={{
-					remember: true
-				}}
+				name="login"
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
 			>
